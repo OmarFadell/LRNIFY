@@ -1,0 +1,30 @@
+const QEX= require('../models/QEXModel')
+const mongoose = require("mongoose")
+const Questions= require('../models/QuestionsModel')
+
+
+
+const createQEX = async(req,res)=>{
+  
+    const {examId} = req.body;
+  
+    try{
+        var objId = await Questions.find().sort({createdAt:-1}).limit(1);
+        
+        var questionsId = objId[0]._id
+        const WholeQuestion1= await  QEX.create({examId,questionsId})
+        res.status(200).json(WholeQuestion1)
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+
+        } 
+
+    
+
+
+module.exports= {
+    createQEX
+
+}

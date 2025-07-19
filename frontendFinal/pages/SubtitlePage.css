@@ -1,0 +1,42 @@
+body {
+    font-family: 'PT Sans';
+    margin: 0;
+  }
+  
+  /* Header/Logo Title */
+  .header {
+    padding: 60px;
+    text-align: center;
+    background: hsl(164, 5%, 45%);
+    color: white;
+    font-size: 60px;
+  }
+  .header h2{
+    font-size: 40px;
+  }
+
+  .header p{
+    font-size: 20px;
+  }
+  /* Page Content */
+  .content {
+    padding:20px;
+    font-size: 40px;
+
+    
+}
+
+.video{
+    
+    display: inline-block;
+    vertical-align: middle;
+    align-content: right;
+    
+}
+.subBody{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 70%;
+
+}
+

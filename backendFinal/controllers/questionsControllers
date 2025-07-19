@@ -1,0 +1,88 @@
+const Questions= require('../models/QuestionsModel')
+const mongoose = require("mongoose")
+var mongo = require('mongodb');
+const qex = require("./QEXController");
+const QEX = require('../models/QEXModel');
+const Exam = require('../models/ExamModel');
+const createMCQ = async(req,res)=>{
+  
+    const {examId,questionsId,CreatorId,correctA,question,a1,a2,a3,a4} = req.body;
+  
+    try{
+      const WholeQuestion= await  Questions.create( {examId,questionsId,CreatorId,correctA,question,a1,a2,a3,a4})
+       res.status(200).json(WholeQuestion);
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+
+        } 
+
+        //getQuestions by examid
+
+
+        const getQuestionsByExamId = async (req,res) => 
+        {
+        
+            const examId = req.query.examId;
+        
+            var query ={examId:examId}
+            const question = await Questions.find(query).sort({createdAt: -1})
+            res.status(200).json(question)
+        
+            if(!question)
+        
+            {
+                return res.status(404).json({error: "No Question with that ExamID"})
+        
+            }
+            }
+        
+
+//get questions by id
+        const getQuestions = async (req,res)=> {
+          const id = req.body.id;
+
+          var query ={id:id}
+
+          console.log('Course Get All');
+          const questions = await Questions.find(query).sort({createdAt: -1});
+      res.status(200).json(questions);
+      }
+
+
+      const getMCQ = async (req,res)=>{
+        const {id} = req.query
+    
+        const exam= await Exam.findOne({examId:id})
+    console.log(id);
+        if(!exam){
+            return res.status(404).json({error:"No Exams availabe with that ID."})
+        }
+       
+        const MCQ =await Questions.find({examId:id})
+       
+        res.status(200).json(MCQ)
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports= {
+    createMCQ,
+    getQuestions,
+    getMCQ,
+    getQuestionsByExamId
+
+}

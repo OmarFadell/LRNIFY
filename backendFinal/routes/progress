@@ -1,0 +1,17 @@
+const express = require('express')
+const Pro= require('../models/ProgressModel')
+const router = express.Router()
+
+
+const {
+    
+    createProgress,getProgress
+    
+    
+    
+}= require("../controllers/progressController")
+
+router.post('/createProgress', createProgress)
+router.get('/getProgress',getProgress)
+
+module.exports= router

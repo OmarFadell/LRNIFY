@@ -1,0 +1,353 @@
+// const ReportStudent= require('../models/ReportStudentModel')
+const mongoose = require("mongoose")
+const Report= require('../models/ReportsModel')
+const Payments= require('../models/PaymentsModel')
+const Instructor= require('../models/InstructorModel');
+const { json } = require("body-parser");
+const Courses= require('../models/CoursesModel');
+const Trainee= require('../models/TraineeMode.js')
+const { findOne, deleteOne } = require("../models/ReportsModel");
+const Reg= require('../models/RegisteredCourseModel')
+const setResolved = async(req,res) =>{
+    const reportId = req.query.reportId;
+
+    try{
+        const report = await Report.findById(mongoose.Types.ObjectId(reportId))
+        report.status = "resolved"
+        const updated = await Report.findByIdAndUpdate(mongoose.Types.ObjectId(reportId),report)
+        res.status(200).json(updated)
+    }catch{
+        res.status(400).json({error:error})
+    }
+}
+
+const setSeen = async(req,res) =>{
+    const reportId = req.query.reportId;
+
+    try{
+        const report = await Report.findById(mongoose.Types.ObjectId(reportId))
+        report.seen = "seen"
+        const updated = await Report.findByIdAndUpdate(mongoose.Types.ObjectId(reportId),report)
+        res.status(200).json(updated)
+    }catch{
+        res.status(400).json({error:error})
+    }
+}
+
+
+const ChangeStatus = async(req,res)=>{
+  
+    const {reportId} = req.body;
+    
+    var query ={_id:mongoose.Types.ObjectId(reportId)}
+    try{
+        
+        const report= await  Report.find(query).sort({createdAt: -1})
+
+                // return res.status(200).json(report)
+        // return res.status(200).json(report[0].status);
+        if(report[0].status.toString() == "resolved"){
+            console.log("pending")
+        const report1= await Report.findOneAndUpdate(mongoose.Types.ObjectId(reportId),{status:"pending"})
+      
+         }
+
+        else if( report[0].status.toString() == 'pending') 
+        {
+            console.log("resolved")
+
+            const report1= await Report.findOneAndUpdate(mongoose.Types.ObjectId(reportId),{status:"resolved"})
+        
+        }
+        const reports = await Report.find({}).sort({createdAt: -1});
+
+        res.status(200).json(reports)
+        
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+
+        } 
+
+        const ChangeSeen = async(req,res)=>{
+  
+            const {reportId} = req.body;
+            
+            var query ={_id:mongoose.Types.ObjectId(reportId)}
+            try{
+                
+                const report= await  Report.find(query).sort({createdAt: -1})
+        
+                        // return res.status(200).json(report)
+                // return res.status(200).json(report[0].status);
+                if(report[0].seen.toString() == "unseen"){
+                    console.log("seen")
+                const report1= await Report.findOneAndUpdate(mongoose.Types.ObjectId(reportId),{seen:"seen"})
+              
+                 }
+        
+                
+                const reports = await Report.find({}).sort({createdAt: -1});
+        
+                res.status(200).json(reports)
+                
+               } 
+                 catch(error){
+                 res.status(400).json({error: error.message})
+                  }
+        
+                } 
+
+
+const createRepStu = async(req,res)=>{
+  
+    const CreatorId = req.body.CreatorId;
+    const reportType = req.body.reportType;
+    const title = req.body.title;
+    const body = req.body.body;
+    const status = req.body.status;
+    const seen = 'Unseen';
+    const CourseCode = req.body.CourseCode;
+
+
+  
+    try{
+        
+        const WholeQuestion1= await  Report.create({CreatorId,reportType,title,body,status,seen,CourseCode,AdminFollowUp:' '})
+        res.status(200).json(WholeQuestion1)
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+
+        }
+        
+        //----------------------------------------------------------------------------------------------
+
+
+        const getRepStu = async(req,res)=>{
+  
+           
+            const {CreatorId} = req.body;
+          
+          
+
+    var query ={CreatorId:CreatorId}
+    const report = await Report.find(query).sort({createdAt: -1})
+   
+    
+    var objToReturn =[];
+    for (const rep of report)
+    {
+        console.log(rep.reportId);
+        const r = await Report.findById(rep.reportId);
+        console.log(r);
+        objToReturn.push(r);
+
+    }
+    res.status(200).json(objToReturn)
+    if(!report)
+
+    {
+        return res.status(404).json({error: "No Report with that CreatorID"})
+
+    }
+
+    }
+
+    const getAll = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find()
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+    }
+
+    const getAllbyCreator = async(req,res) =>{
+
+        creatorID = req.query.CreatorId
+
+        try{
+
+            const reports = await Report.find({CreatorId:creatorID}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+    }
+
+    const getAllRefunds = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find({reportType:'refund'}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+
+    const getAllTechnical = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find({reportType:'technical'}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+
+    const getAllFinancial = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find({reportType:'financial'}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+
+    const getAllOther = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find({reportType:'other'}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+
+    const getAllCourseRequest = async(req,res) =>{
+
+        try{
+
+            const reports = await Report.find({reportType:'courseRequest'}).sort({createdAt: -1})
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+    const getByID = async(req,res) =>{
+
+        const id = req.query.id
+
+        try{
+
+            const reports = await Report.findById(mongoose.Types.ObjectId(id))
+            
+            res.status(200).json(reports)
+        }catch{
+            res.status(400).json({error: "error"})
+        }
+
+        
+
+
+
+    }
+
+    const refund = async(req,res) =>{
+
+        const probid = req.query.id
+        // const courseCode = req.query.code;
+
+        try{
+
+            const reports = await Report.findById(mongoose.Types.ObjectId(probid));
+            // console.log(reports.CourseCode)
+            const id = reports.CreatorId;
+            const course = await Courses.findOne({Code:reports.CourseCode})
+            // console.log(course.id)
+            const payment = await Payments.findOne({TraineeId:id,CourseId:course.id})
+            console.log(payment)
+            const trainee = await Trainee.findOne({_id:id})
+            trainee.wallet= trainee.wallet + payment.Amount
+
+             const newtran = await Trainee.findOneAndUpdate({_id:id},trainee)
+            //  console.log(newtran)
+            const reg = await Reg.deleteOne({CourseId:course.id,TraineeId:id})
+            const refund = await Report.findOne({CreatorId:id,CourseCode:course.Code,status:'resolved'})
+            
+
+            
+            res.status(200).json(newtran)
+        }catch (error){
+            res.status(400).json({error: error.message})
+        }
+
+        
+
+
+
+    }
+
+    
+    
+
+
+
+
+
+
+
+
+        module.exports= {
+            createRepStu,
+            getRepStu,
+            ChangeStatus,
+            setResolved,
+            ChangeSeen,
+            getAll,
+            setSeen,
+            getAllbyCreator,
+            getAllRefunds,
+            getAllTechnical,
+            getAllFinancial,
+            getAllOther,
+            getByID,
+            getAllCourseRequest,
+            refund
+        
+        }
+

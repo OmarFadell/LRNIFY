@@ -1,0 +1,15 @@
+
+const express = require('express')
+const Payments = require('../models/PaymentsModel')
+const router = express.Router()
+const {
+    AddPayment,getPaymentByIdAndCourse
+}= require('../controllers/PaymentsController')
+
+// post a new Admin
+router.post('/', AddPayment)
+router.get('/getPaymentByIdAndCourse',getPaymentByIdAndCourse)
+
+
+module.exports= router
+

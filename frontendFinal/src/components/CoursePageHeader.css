@@ -1,0 +1,143 @@
+
+  
+  .headera {
+    background: url('.\\gradient.png') center center/cover no-repeat; 
+    /* background-color: #EFEFEF; */
+    height: 50vh;
+    /* background-color: aliceblue; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     /* align-items: center; */
+     vertical-align: top; 
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+    
+  }
+  
+   .img{
+    /* align-items: center; */
+    /* width: 12;
+    height: 12; */
+    max-width: 30%;
+  }
+
+  .headera > h1 {
+    color: black;
+    font-size: 60px;
+    font-family: 'PT Sans';
+    text-align: left;
+    font-weight: 700;
+    line-height: 1em;
+
+    margin-left: -20em;
+    margin-bottom: 0em;
+    margin-top: -0.1em;
+    margin-right: 16em;
+   
+
+     
+  }
+  
+  .headera> h2{
+    color: black;
+    font-size: 30px;
+    font-family: 'PT Sans';
+    text-align: left;
+    font-weight: 700;
+    line-height: 1em;
+    display: inline;
+    margin-left: 4em;
+    margin-bottom: -0.5em;
+    margin-top: 0.6em;
+    margin-right: 16em;
+    float: left;
+   
+  }
+
+  .headera> h3{
+    float: right;
+    color: black;
+    font-size: 50px;
+    font-family: 'PT Sans';
+    text-align: left;
+    font-weight: 700;
+    line-height: 1em;
+    display: inline;
+    margin-left: 3em;
+    margin-bottom: 0em;
+    margin-top: -1.17em;
+    margin-right: 12em;
+   
+  }
+
+  .ratingcard{
+    position: relative;
+    left: 10rem;
+    top: 10 rem;
+  }
+
+  .headera > p {
+    /* margin-top: 8px; */
+    color: rgb(0, 0, 0);
+    font-size: 28px;
+    font-family: 'PT Sans';
+    /* font-weight: 400; */
+    margin-left: 4em;
+    margin-bottom: 0;
+    margin-top: 0.3em;
+    margin-right: 30em;
+  }
+
+  .info{
+    display: inline-block;
+  }
+
+  .videoa{
+    position: absolute;
+
+    display: inline-block;
+    margin-left: 70rem;
+  }
+  
+  .hero-btns {
+    margin-top: 32px;
+    margin-left: 20em;
+  }
+  
+  .hero-btns .btn {
+    margin-top: 0;
+    margin-left: 1em;
+  }
+  
+  .fa-play-circle {
+    margin-left: 4px;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .hero-container > h1 {
+      font-size: 70px;
+      margin-top: -150px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .hero-container > h1 {
+      font-size: 50px;
+      margin-top: -100px;
+    }
+  
+    .hero-container > p {
+      font-size: 30px;
+    }
+  
+    .btn-mobile {
+      display: block;
+      text-decoration: none;
+    }
+  
+    .btn {
+      width: 100%;
+    }
+  }

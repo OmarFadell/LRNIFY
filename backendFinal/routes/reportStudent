@@ -1,0 +1,44 @@
+const express = require('express')
+const ReportStudent= require('../models/ReportStudentModel')
+const router = express.Router()
+
+
+const {
+    
+    createRepStu,
+    getRepStu,
+    ChangeStatus,
+    ChangeSeen,
+    setResolved,
+    setSeen,
+    getAll,
+    getAllbyCreator,
+    getAllRefunds,
+    getAllTechnical,
+    getAllFinancial,
+    getAllOther,
+    getAllCourseRequest,
+    getByID,
+    refund
+    
+    
+    
+}= require("../controllers/ReportStudentController")
+
+router.post('/createRepStu', createRepStu)
+router.post('/getRepStu', getRepStu)
+router.post('/ChangeStatus', ChangeStatus)
+router.post('/ChangeSeen', ChangeSeen)
+router.put('/setResolved',setResolved)
+router.put('/setSeen',setSeen)
+router.get('/getAll',getAll)
+router.get('/getAllbyCreator',getAllbyCreator)
+router.get('/getAllRefunds',getAllRefunds)
+router.get('/getallTech',getAllTechnical)
+router.get('/getallFin',getAllFinancial)
+router.get('/getallOther',getAllOther)
+router.get('/getByID',getByID)
+router.get('/getAllCourseRequest',getAllCourseRequest)
+router.post('/refund',refund)
+
+module.exports= router

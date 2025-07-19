@@ -1,0 +1,79 @@
+const Exam= require('../models/ExamModel')
+const mongoose = require("mongoose")
+
+
+
+//crete new exam
+const createEx = async(req,res)=>{
+  
+    const {examId,instructorId,courseCode,year,examTitle} = req.body;
+  
+    try{
+      const WholeExam= await  Exam.create( {examId,instructorId,courseCode,year,examTitle})
+         res.status(200).json(WholeExam)
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+  
+          
+    
+  
+        } 
+
+
+        const getExams = async (req,res)=> {
+          console.log('Course Get All');
+          const exams = await Exam.find({}).sort({createdAt: -1});
+      res.status(200).json(exams);
+      }
+
+      const getExamsByID = async (req,res)=> {
+        const examid = req.query.examID
+        console.log('Course Get All');
+        const exams = await Exam.find({examId:examid}).sort({createdAt: -1});
+    res.status(200).json(exams);
+    }
+
+      const getExamsbyInst = async (req,res)=> {
+        const insid = req.query.instructorId
+        // console.log('Course Get All');
+        
+        const exams = await Exam.find({instructorId:insid}).sort({createdAt: -1});
+        res.status(200).json(exams);
+        }
+
+        const getExamsbyCourse = async (req,res)=> {
+          const courseId = req.query.courseId
+          // console.log('Course Get All');
+          
+          const exams = await Exam.find({courseCode:courseId}).sort({createdAt: -1});
+          res.status(200).json(exams);
+          }
+
+   //get all qustions for a singel exam
+
+   const getMCQ = async (req,res)=>{
+    const {id} = req.query
+
+    const exam= await Exam.findOne({courseCode:id})
+console.log(id);
+    if(!exam){
+        return res.status(404).json({error:"No Exams availabe with that ID."})
+    }
+   
+    const MCQ =await Questions.find({examId:exam._id})
+   
+    res.status(200).json(MCQ)
+   
+}
+
+module.exports= {
+    createEx,
+    getExams,
+    getMCQ,
+    getExamsbyInst,
+    getExamsByID,
+    getExamsbyCourse
+
+}

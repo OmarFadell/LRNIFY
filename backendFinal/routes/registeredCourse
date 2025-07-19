@@ -1,0 +1,22 @@
+const express = require('express')
+const Reg= require('../models/RegisteredCourseModel')
+const router = express.Router()
+
+
+const {
+    
+    createReg,
+    getCoursesByTrainee,
+    CheckCourse,
+    AddbyCode
+    
+    
+    
+}= require("../controllers/registeredCourseController")
+
+router.post('/AddbyCode', AddbyCode)
+router.post('/createReg', createReg)
+router.get('/getCoursesByTrainee', getCoursesByTrainee)
+router.get('/CheckCourse',CheckCourse)
+
+module.exports= router

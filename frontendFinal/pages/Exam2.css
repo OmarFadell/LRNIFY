@@ -1,0 +1,8 @@
+.horizontal {
+    display: flex;
+    align-items: center;
+  }
+  .try {
+    display: flex;
+    align-content: center;
+  }

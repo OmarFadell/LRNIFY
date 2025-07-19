@@ -1,0 +1,55 @@
+const Pro= require('../models/ProgressModel')
+const mongoose = require("mongoose")
+
+
+
+//crete new progress
+const createProgress = async(req,res)=>{
+  
+    const {TraineeId,CourseId,SubtitleId,Viewed,Percentage} = req.body;
+
+    const checkSub = await Pro.findOne({SubtitleId:SubtitleId});
+
+    if(!checkSub){
+
+      try{
+        const Progress= await  Pro.create( {TraineeId,CourseId,SubtitleId,Viewed,Percentage})
+           res.status(200).json(Progress)
+         } 
+           catch(error){
+           res.status(400).json({error: error.message})
+            }
+    
+            
+    }else{
+      res.send({message: "already counted"})
+    }
+  
+        } 
+
+        const getProgress = async(req,res)=>{
+  
+  
+
+          const TraineeId = req.query.TraineeId;
+          const CourseId = req.query.CourseId;
+        
+          var query ={TraineeId:TraineeId,CourseId:CourseId}
+          const progress = await Pro.find(query).sort({createdAt: -1})
+          res.status(200).json(progress)
+        
+          if(!progress)
+        
+          {
+              return res.status(404).json({error: "No entry with that CourseId and TraineeId"})
+        
+          }
+        
+        }
+       
+
+module.exports= {
+    createProgress,
+    getProgress
+    
+}

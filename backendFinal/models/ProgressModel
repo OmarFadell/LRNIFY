@@ -1,0 +1,37 @@
+const mongoose= require('mongoose')
+
+const Schema = mongoose.Schema
+
+const progressSchema = new Schema ({
+
+    TraineeId :{
+        type:String,
+        required:true
+    },
+    CourseId :{
+        type:String,
+        required:true
+    },
+  
+    SubtitleId :{
+        type:String,
+        required:true
+    },
+
+     Viewed :{
+        type:Boolean,
+        required:true
+    },
+
+    Percentage :{
+        type:Number,
+        required:false
+    }
+
+   
+
+
+
+    },{timestamps: true})
+
+    module.exports = mongoose.model('Progress',progressSchema)

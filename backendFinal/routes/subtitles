@@ -1,0 +1,16 @@
+
+const express = require('express')
+const subtitles= require('../models/SubtitlesModel')
+const router = express.Router()
+const {CreateSubtitle, getSubByCourse, getSubById, change} = require('../controllers/subtitleController')
+
+
+router.post('/',CreateSubtitle)
+
+router.get('/getSubByCourse',getSubByCourse)
+
+router.get('/getSubById',getSubById)
+
+router.put('/', change)
+
+module.exports= router;

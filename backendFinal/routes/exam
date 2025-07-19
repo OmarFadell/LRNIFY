@@ -1,0 +1,27 @@
+const express = require('express')
+const Exam= require('../models/ExamModel')
+const router = express.Router()
+
+const {
+    
+    createEx,
+    getExams,
+    getExamsbyInst,
+    getExamsByID,
+    getExamsbyCourse
+    
+    
+    
+}= require("../controllers/examController")
+
+
+router.post('/createEx',createEx)
+router.get('/getExams',getExams)
+router.get('/getExamsByIns',getExamsbyInst)
+router.get('/getExamsByID',getExamsByID)
+router.get('/getExamsbyCourse',getExamsbyCourse)
+
+
+
+
+module.exports= router

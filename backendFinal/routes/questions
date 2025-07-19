@@ -1,0 +1,29 @@
+const express = require('express')
+const Questions= require('../models/QuestionsModel')
+const router = express.Router()
+
+const {
+    
+    createMCQ,
+    getQuestions,
+    getMCQ,
+    getQuestionsByExamId
+    
+    
+    
+}= require("../controllers/questionsControllers")
+
+
+//creates new question
+router.post('/createMCQ', createMCQ)
+
+router.get('/getMCQ', getMCQ)
+
+
+
+router.get('/getQuestions',getQuestions)
+
+router.get('/getQuestionsByExamId',getQuestionsByExamId)
+
+
+module.exports= router

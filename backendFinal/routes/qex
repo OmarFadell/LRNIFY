@@ -1,0 +1,16 @@
+const express = require('express')
+const QEX= require('../models/QEXModel')
+const router = express.Router()
+
+
+const {
+    
+    createQEX
+    
+    
+    
+}= require("../controllers/QEXController")
+
+router.post('/createQEX', createQEX)
+
+module.exports= router

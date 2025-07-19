@@ -1,0 +1,41 @@
+const express = require('express')
+const Instructor= require('../models/InstructorModel')
+const router = express.Router()
+
+
+const{ createInstructor, getInstructors,createInstructorReview, getInstructorbyId, changeBio, GetInstructorReviews,GetInstructorRating,getRatingsReviews,login,getByTitleAndInstructor,
+secondsignin
+
+
+} = require('../controllers/instructorControllers')
+const { selectCountry,updateCopCountry } = require('../controllers/instructorControllers')
+//get instructor by id
+router.get('/getInstructorbyId',getInstructorbyId)
+// post a new trainee
+router.post('/', createInstructor)
+// change bio
+router.put('/changeBio',changeBio)
+// select country
+router.post('/selectCountry',selectCountry)
+
+router.get('/testget',(req,res) => {
+    res.json({mssg:"test Calling"})
+})
+router.get('/login',login)
+router.patch('/updateCopParam/:id',updateCopCountry)
+
+router.get('/',getInstructors)
+
+router.get('/GetInstructorReviews',GetInstructorReviews)
+
+router.post('/createInstructorReview',createInstructorReview)
+
+router.get('/getRating',GetInstructorRating)
+//review instructor
+router.post('/instructorReview',createInstructorReview)
+router.get('/review', getRatingsReviews)
+
+router.put('/secondsignin',secondsignin)
+
+
+module.exports= router

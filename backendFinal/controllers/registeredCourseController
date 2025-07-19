@@ -1,0 +1,90 @@
+const Reg= require('../models/RegisteredCourseModel')
+const mongoose = require("mongoose")
+const Courses= require('../models/CoursesModel')
+
+
+
+//crete new Reg
+const createReg = async(req,res)=>{
+  
+    const {CourseId,TraineeId,CourseName} = req.body;
+
+  
+    try{
+      const Registered= await  Reg.create( {CourseId,TraineeId,CourseName})
+      
+         res.status(200).json(Registered)
+       } 
+         catch(error){
+         res.status(400).json({error: error.message})
+          }
+  
+          
+        } 
+
+        const getCoursesByTrainee = async(req,res) => {
+
+          const traineeId = req.query.TraineeId
+          const courses = await Reg.find({TraineeId:traineeId})
+          if (courses){
+
+          
+          res.status(200).json(courses)
+          }else{
+            res.send({message:"empty"})
+          }
+      }
+
+      
+      const CheckCourse = async(req,res) => {
+
+        const traineeId = req.query.TraineeId
+        const courseId = req.query.CourseId
+        const courses = await Reg.find( { $and: [ { TraineeId: traineeId }, { CourseId: courseId } ] } )
+        
+        if (courses){
+
+        
+        res.status(200).json(courses)
+        }else{
+          res.send({message:"empty"})
+          
+        }
+    }
+
+    const AddbyCode = async(req,res) => {
+
+          
+      const Code = req.query.code;
+      const traineeId = req.query.traineeId;
+      // check if userId is not empty
+      try{
+
+      
+      if(Code){
+      const result = await Courses.find({Code:String(Code)});
+      // var x = result[0]._id
+      // console.log(x)
+      
+      const Registered= await  Reg.create( {CourseId:result[0].id,TraineeId:traineeId,CourseName:result[0].title})
+      res.status(200).json(Registered)
+      }
+    }catch{
+      res.status(200).json('error')
+
+    }
+
+  }
+
+        
+
+
+       
+
+module.exports= {
+    createReg,
+    getCoursesByTrainee,
+    CheckCourse,
+    AddbyCode
+    
+}

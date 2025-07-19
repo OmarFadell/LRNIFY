@@ -1,0 +1,52 @@
+const express = require('express')
+const Trainee= require('../models/TraineeMode')
+const router = express.Router()
+const cookieParser = require('cookie-parser');
+
+const{ createTrainee, changePassword,getTraineeCourses ,sendEmail,getTraineeByID,addingCourseToTrainee,selectCountry, payWithWallet
+,updateCopCountry, login,logout,setCountryToken,getCountryToken,post,getTraineeByusername,takecreditcarddetails} = require('../controllers/traineeControllers')
+
+// post a new trainee
+router.post('/', createTrainee)
+
+router.post('/changepassword', changePassword);
+router.post('/sendemail',sendEmail);
+router.post('/selectCountry',selectCountry)
+router.get('/testget',(req,res) => {
+    res.json({mssg:"test Calling"})
+})
+router.put('/payWithWallet',payWithWallet)
+router.get('/login',login)
+router.get('/getcooke',getCountryToken)
+router.post('/postCountryToken',setCountryToken)
+
+router.use(cookieParser());
+
+router.get('/getCountryToken', function(req, res) {
+   res.send({message: req.cookies['country']});
+})
+router.post('/post', post)
+
+router.delete('/logout',logout)
+
+router.get('/getTraineeByID',getTraineeByID)
+
+router.get('/logout',logout)
+
+router.get('/getTraineeCourses',getTraineeCourses)
+
+router.post('/sendemail',sendEmail);
+
+router.put('/addingCourseToTrainee',addingCourseToTrainee)
+
+router.put('/resetpassword',changePassword)
+
+router.patch('/updateCopParam/:id',updateCopCountry)
+
+router.get('/getTraineeByusername',getTraineeByusername)
+
+router.post('/creditcard',takecreditcarddetails)
+
+
+
+module.exports= router
